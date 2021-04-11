@@ -4,16 +4,15 @@ from werkzeug.utils import secure_filename
 
 import os
 from image_identifier import getDetectedObjects
+from decouple import config
 
 app = Flask(__name__)
 api = Api(app=app)
-
 
 def allowed_file(filename):
     allowed_extensions = set(['jpg', 'jpeg', 'png'])
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in allowed_extensions
-
 
 class Home(Resource):
     def get(self):
@@ -22,8 +21,7 @@ class Home(Resource):
 
 class ImageReceiver(Resource):
     def post(self):
-        dirname = 'test_images'
-        os.mkdir(os.path.join(os.getcwd(), dirname))
+        os.mkdir(os.path.join(os.getcwd(), config('IMG_DIR')))
         if 'image' not in request.files:
             return jsonify({'message': 'No image found!'})
         file = request.files['image']
