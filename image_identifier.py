@@ -17,7 +17,7 @@ def getDetectedObjects():
     detector = ObjectDetection()
     detector.setModelTypeAsRetinaNet()
     detector.setModelPath(
-        os.path.join(execution_path, 'model/resnet50_coco_best_v2.1.0.h5'))
+        os.path.join(execution_path, f"{config('MODEL_DIR')}/data_model.h5"))
     detector.loadModel()
 
     detections = detector.detectObjectsFromImage(
