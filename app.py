@@ -27,12 +27,10 @@ class ImageReceiver(Resource):
         file = request.files['image']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(dirname,
+            file.save(os.path.join(config('IMG_DIR'),
                                    f'image.{filename.split(".")[-1]}'))
             detectedObjects = getDetectedObjects()
             return jsonify({'detected_objects': detectedObjects})
-            # return redirect(url_for('imagereceiver', filename=filename))
-
 
 api.add_resource(Home, '/')
 api.add_resource(ImageReceiver, '/image')
