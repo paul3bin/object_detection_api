@@ -114,3 +114,4 @@ dmypy.json
 .pyre/
 devEnv
 models
+test_images
