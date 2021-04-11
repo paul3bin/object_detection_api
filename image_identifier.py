@@ -1,5 +1,6 @@
 from imageai.Detection import ObjectDetection
 import os
+from decouple import config
 
 
 def getImageName():
@@ -22,17 +23,17 @@ def getDetectedObjects():
     detections = detector.detectObjectsFromImage(
         input_image=os.path.join(
             execution_path,
-            f"test_images/image.{getImageName().split('.')[-1]}"),
+            f"{config('IMG_DIR')}/image.{getImageName().split('.')[-1]}"),
         output_image_path=os.path.join(
             execution_path,
-            f"test_images/result.{getImageName().split('.')[-1]}"))
+            f"{config('IMG_DIR')}/result.{getImageName().split('.')[-1]}"))
 
     os.remove(
         os.path.join(execution_path,
-                     f"test_images/result.{getImageName().split('.')[-1]}"))
+                     f"{config('IMG_DIR')}/result.{getImageName().split('.')[-1]}"))
     os.remove(
         os.path.join(execution_path,
-                     f"test_images/image.{getImageName().split('.')[-1]}"))
+                     f"{config('IMG_DIR')}/image.{getImageName().split('.')[-1]}"))
 
     for eachObject in detections:
         detected_objects.append({
