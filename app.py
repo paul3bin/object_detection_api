@@ -21,7 +21,6 @@ class Home(Resource):
 
 class ImageReceiver(Resource):
     def post(self):
-        os.mkdir(os.path.join(os.getcwd(), config('IMG_DIR')))
         if 'image' not in request.files:
             return jsonify({'message': 'No image found!'})
         file = request.files['image']
